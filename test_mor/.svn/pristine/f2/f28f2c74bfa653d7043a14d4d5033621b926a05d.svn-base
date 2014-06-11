@@ -1,0 +1,51 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class rect : MonoBehaviour {
+    public enum rectType { horizontal,vertical};
+    mouseControl mCtrl;
+    public Vector2 boundMin;
+    public Vector2 boundMax;
+    public rectType type = rectType.vertical;
+    private Vector3 startPos;
+    public bool fixMove = false;
+
+    void OnMouseDown() {
+        if(!fixMove)onMouse();        
+    }
+    public void onMouse() {
+        mCtrl.start(); 
+    }
+
+	void Start () {
+        mCtrl = new mouseControl(this.gameObject);
+        startPos = transform.position;
+	}
+	
+	void Update () {
+        mCtrl.update();
+	}
+
+    void touch_down() {
+
+    }
+    void touch_up() {
+
+    }
+    void touch_move(Vector2 shift) {
+        if (type == rectType.vertical) {
+            Vector3 scale = transform.localScale;
+            scale.y = Mathf.Clamp(scale.y + shift.y, boundMin.y, boundMax.y);
+            transform.localScale = scale;
+
+            Vector3 pos = transform.position;
+            pos.y = (startPos.y - 0.5f) + scale.y / 2;
+            pos.x = Mathf.Clamp(pos.x+shift.x,boundMin.x, boundMax.x);
+            transform.position = pos;
+        }
+        if (type == rectType.horizontal) {
+
+        }
+
+    }
+}
