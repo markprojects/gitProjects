@@ -8,7 +8,7 @@ public class borderShow {
 
     public borderShow(rect rect) {        
         this.rect = rect;
-
+//test coment
         lr = rect.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Diffuse"));
         lr.SetColors(Color.red, Color.red);
